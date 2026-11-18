@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>NetOps | Network Monitoring Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"
+            defer></script>
+
+    <script src="{{ url_for('static', filename='script.js') }}"
+            defer></script>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">N</div>
+            <div>
+                <h2>NetOps</h2>
+                <span>Infrastructure Monitor</span>
+            </div>
+        </div>
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <nav class="navigation">
+            <a href="#overview" class="nav-link active">
+                Dashboard
+            </a>
+
+            <a href="#metrics" class="nav-link">
+                System Metrics
+            </a>
+
+            <a href="#network" class="nav-link">
+                Network Traffic
+            </a>
+
+            <a href="#services" class="nav-link">
+                Service Monitoring
+            </a>
+
+            <a href="#activity" class="nav-link">
+                Activity Logs
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="connection-status">
+                <span class="status-dot"></span>
+                <span>Monitoring Active</span>
+            </div>
+
+            <p>Network & Systems Administration</p>
+            <small>CI/CD Cloud Deployment Project</small>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <span class="eyebrow">OPERATIONS CENTER</span>
+                <h1>Network Overview</h1>
+                <p>Infrastructure health and service monitoring</p>
+            </div>
+
+            <div class="header-actions">
+                <span class="environment-badge">
+                    DEMO ENVIRONMENT
+                </span>
+
+                <span id="current-time"></span>
+            </div>
+        </header>
+
+        <!-- Dashboard -->
+        <section id="overview" class="section">
+
+            <div class="section-heading">
+                <h2>Infrastructure Overview</h2>
+                <span>Application health and demo metrics</span>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-label">Application Health</div>
+                    <h3 id="health-status">Checking...</h3>
+                    <p>Flask health endpoint</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Monitored Services</div>
+                    <h3>04</h3>
+                    <p>Demo service inventory</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Network Latency</div>
+                    <h3>24 ms</h3>
+                    <p>Simulated measurement</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Availability</div>
+                    <h3>99.9%</h3>
+                    <p>Illustrative target</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- System Metrics -->
+        <section id="metrics" class="section">
+
+            <div class="section-heading">
+                <h2>System Metrics</h2>
+                <span>Runtime information</span>
+            </div>
+
+            <div class="panel-grid">
+
+                <div class="panel">
+                    <h3>System Information</h3>
+
+                    <div class="info-row">
+                        <span>Operating System</span>
+                        <strong id="os-name">Loading...</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Python Version</span>
+                        <strong id="python-version">Loading...</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Application Framework</span>
+                        <strong>Flask</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Deployment Type</span>
+                        <strong>Docker Container</strong>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3>Resource Utilization</h3>
+                    <p class="panel-subtitle">
+                        Simulated CPU and memory usage
+                    </p>
+
+                    <canvas id="resourceChart"></canvas>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Network Traffic -->
+        <section id="network" class="section">
+
+            <div class="section-heading">
+                <h2>Network Traffic</h2>
+                <span>Simulated traffic visualization</span>
+            </div>
+
+            <div class="panel">
+                <h3>Incoming vs Outgoing Traffic</h3>
+                <p class="panel-subtitle">
+                    Demonstration data — not live packet capture
+                </p>
+
+                <canvas id="networkChart"></canvas>
+            </div>
+
+        </section>
+
+        <!-- Services -->
+        <section id="services" class="section">
+
+            <div class="section-heading">
+                <h2>Service Monitoring</h2>
+                <span>Demonstration service inventory</span>
+            </div>
+
+            <div class="panel">
+                <table class="service-table">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Environment</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Flask Web Application</td>
+                            <td>Application</td>
+                            <td>
+                                <span id="flask-service-status"
+                                      class="status-pill">
+                                    Checking
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Docker Container</td>
+                            <td>Container Runtime</td>
+                            <td>
+                                <span class="status-pill demo">
+                                    Demo
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>GitHub Actions</td>
+                            <td>CI/CD Pipeline</td>
+                            <td>
+                                <span class="status-pill demo">
+                                    Demo
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Cloud Hosting</td>
+                            <td>Deployment</td>
+                            <td>
+                                <span class="status-pill demo">
+                                    Planned
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- Activity -->
+        <section id="activity" class="section">
+
+            <div class="section-heading">
+                <h2>Activity Logs</h2>
+                <span>Application events</span>
+            </div>
+
+            <div class="panel">
+                <ul id="activity-list" class="activity-list">
+                    <li>Dashboard initialized</li>
+                    <li>Waiting for application health check</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <footer>
+            NetOps Monitoring Dashboard |
+            B9IS121 Networks and Systems Administration
+        </footer>
+
+    </main>
+</div>
+
+</body>
+</html>
