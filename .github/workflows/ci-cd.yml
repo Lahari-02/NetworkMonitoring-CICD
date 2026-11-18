@@ -1,0 +1,47 @@
+
+name: Network Monitoring CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Test Flask endpoints
+        run: |
+          python - <<'PY'
+          from app import app
+
+          client = app.test_client()
+
+          assert client.get("/").status_code == 200
+
+          response = client.get("/health")
+          assert response.status_code == 200
+          assert response.get_json()["status"] == "healthy"
+
+          response = client.get("/system")
+          assert response.status_code == 200
+          assert "operating_system" in response.get_json()
+
+          print("All Flask endpoint tests passed")
+          PY
+
+      - name: Build Docker image
+        run: docker build -t network-monitoring:test .
