@@ -79,11 +79,23 @@ jobs:
           service_account: 'github-actions-deployer@netops-monitoring.iam.gserviceaccount.com'
 
     
+     
+      - name: Configure Artifact Registry authentication
+        if: github.event_name == 'push'
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
+
+      - name: Build and push image to Artifact Registry
+        if: github.event_name == 'push'
+        run: |
+          docker build -t europe-west1-docker.pkg.dev/netops-monitoring/netops-images/network-monitoring:${{ github.sha }} .
+          docker push europe-west1-docker.pkg.dev/netops-monitoring/netops-images/network-monitoring:${{ github.sha }}
+
       - name: Deploy to Google Cloud Run
         if: github.event_name == 'push'
         uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: network-netops-monitoring-app
           region: europe-west1
-          image: docker.io/lahari1902/network-monitoring:${{ github.sha }}
+          image: europe-west1-docker.pkg.dev/netops-monitoring/netops-images/network-monitoring:${{ github.sha }}
+
 
