@@ -78,10 +78,12 @@ jobs:
           workload_identity_provider: 'projects/34248954241/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider'
           service_account: 'github-actions-deployer@netops-monitoring.iam.gserviceaccount.com'
 
+    
       - name: Deploy to Google Cloud Run
         if: github.event_name == 'push'
         uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: network-netops-monitoring-app
           region: europe-west1
-         image: docker.io/lahari1902/network-monitoring:latest
+          image: docker.io/lahari1902/network-monitoring:latest
+
