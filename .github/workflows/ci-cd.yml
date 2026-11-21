@@ -84,4 +84,4 @@ jobs:
         with:
           service: network-netops-monitoring-app
           region: europe-west1
-          image: docker.io/lahari1902/network-monitoring:${{ github.sha }}
+         image: docker.io/lahari1902/network-monitoring:latest
